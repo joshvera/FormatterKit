@@ -118,7 +118,8 @@ static inline NSCalendarUnit NSCalendarUnitFromString(NSString *string) {
         if (!string || self.leastSignificantUnit >= unit) {
             NSNumber *number = [NSNumber numberWithInteger:abs([[components valueForKey:unitName] integerValue])];
             if ([number integerValue]) {
-                NSString *suffix = [NSString stringWithFormat:@"%@%@", number, [self localizedStringForNumber:[number integerValue] ofCalendarUnit:unit]];
+				NSString *format = self.usesAbbreviatedCalendarUnits ? @"%@%@" : @"%@ %@";
+                NSString *suffix = [NSString stringWithFormat:format, number, [self localizedStringForNumber:[number integerValue] ofCalendarUnit:unit]];
                 if (!string) {
                     string = suffix;
                 } else if (self.numberOfSignificantUnits == 0 || numberOfUnits < self.numberOfSignificantUnits) {
